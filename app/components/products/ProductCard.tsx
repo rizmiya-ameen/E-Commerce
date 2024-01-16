@@ -1,6 +1,8 @@
 "use client"
 
+import { formatPrice } from "@/utils/formatPrice"
 import { truncateText } from "@/utils/truncateText"
+import { Rating } from "@mui/material"
 import Image from "next/image"
 
 interface ProductCardProps {
@@ -24,9 +26,14 @@ const ProductCard = ({data}: ProductCardProps) => {
         <div className="mt-4">
           {truncateText(data.name)}
         </div>
-        <div></div>
-        <div></div>
-        <div></div>
+
+        <div>
+          <Rating value={4} readOnly/>
+        </div>
+
+        <div>{data.reviews.length} reviews</div>
+
+        <div className="font-semibold">{formatPrice(data.price)}</div>
       </div>
     </div>
   )
