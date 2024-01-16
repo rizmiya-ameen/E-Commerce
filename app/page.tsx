@@ -2,8 +2,8 @@
 
 export default function Home() {
   return (
-    <main> 
+    <div> 
       ElectroSwift
-    </main>
+    </div>
   )
 }
