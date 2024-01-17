@@ -1,7 +1,7 @@
 import { products } from "@/utils/products";
 import { truncateText } from "@/utils/truncateText";
-import Container from "./components/Container";
-import ProductCard from "./components/products/ProductCard";
+import Container from "@/components/Container";
+import ProductCard from "@/components/products/ProductCard";
 
 export default function Home() {
   return (
