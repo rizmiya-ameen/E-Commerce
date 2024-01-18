@@ -12,10 +12,13 @@ interface ProductCardProps {
 
 const ProductCard = ({data}: ProductCardProps) => {
 
+  const productRating = data.reviews.reduce((acc: number, item: any) => item.rating + acc, 0) / data.reviews.length
+
   const router = useRouter()
+
   return (
     <div 
-    onClick={() => router.push(`product/${data.id}`)}
+    onClick={() => router.push(`/product/${data.id}`)}
     className="col-span-1 cursor-pointer border-[1.2px] border-slate-200 bg-slate-50 rounded-sm p-2 transition hover:scale-105 text-center text-sm">
       <div className="flex flex-col items-center w-full gap-1">
 
@@ -33,7 +36,7 @@ const ProductCard = ({data}: ProductCardProps) => {
         </div>
 
         <div>
-          <Rating value={4} readOnly/>
+          <Rating value={productRating} readOnly/>
         </div>
 
         <div>{data.reviews.length} reviews</div>
