@@ -1,5 +1,6 @@
 "use client";
 
+import Button from "@/components/Button";
 import SetColor from "@/components/products/SetColor";
 import { SetQuantity } from "@/components/products/SetQuantity";
 import { Rating } from "@mui/material";
@@ -31,7 +32,6 @@ const Horizontal = () => {
 };
 
 const ProductDetails = ({ product }: ProductDetailsProps) => {
-  
   const [cartProduct, setCartProduct] = useState<CartProductType>({
     id: product.id,
     name: product.name,
@@ -42,8 +42,6 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
     quantity: 1,
     price: product.price,
   });
-
-  
 
   const productRating =
     product.reviews.reduce((acc: number, item: any) => item.rating + acc, 0) /
@@ -58,19 +56,46 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
     [cartProduct.selectedImg]
   );
 
+  /*
   const handleQtyIncrease = useCallback(() => {
+
+    if (cartProduct.quantity === 50) return 50;
     setCartProduct(prev => {
       return {...prev, quantity: ++prev.quantity}
     })
   }, [cartProduct])
 
+  
   const handleQtyDecrease = useCallback(() => {
 
-    if (cartProduct.quantity === 1) return 1;
+    if (cartProduct.quantity === 1) {
+      return 1
+    }
     setCartProduct(prev => {
       return {...prev, quantity: --prev.quantity}
     })
   }, [cartProduct])
+  */
+
+  const handleQtyDecrease = useCallback(() => {
+    setCartProduct((prev) => {
+      if (prev.quantity === 1) {
+        return { ...prev, quantity: 1 };
+      } else {
+        return { ...prev, quantity: prev.quantity - 1 };
+      }
+    });
+  }, [cartProduct]);
+
+  const handleQtyIncrease = useCallback(() => {
+    setCartProduct((prev) => {
+      if (prev.quantity === 10) {
+        return { ...prev, quantity: 10 };
+      } else {
+        return { ...prev, quantity: prev.quantity + 1 };
+      }
+    });
+  }, [cartProduct]);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -107,11 +132,17 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
 
       <Horizontal />
 
-      <SetQuantity cartProduct={cartProduct} handleQtyIncrease={handleQtyIncrease} handleQtyDecrease={handleQtyDecrease}/>
+      <SetQuantity
+        cartProduct={cartProduct}
+        handleQtyIncrease={handleQtyIncrease}
+        handleQtyDecrease={handleQtyDecrease}
+      />
 
       <Horizontal />
 
-      <div>Add to cart</div>
+      <div className="max-w-[300px]">
+        <Button label="Add To Cart" onClick={() => {}} />
+      </div>
     </div>
   );
 };
@@ -120,7 +151,7 @@ export default ProductDetails;
 
 //console.log(cartProduct);
 
-  /*
+/*
   {
     "id": "648437b38c44d52b9542e340",
     "name": "Apple iPhone 13, 64GB",
