@@ -1,31 +1,44 @@
-"use client"
+"use client";
 
-import Heading from "@/components/Heading"
-import moment from "moment"
+import Avatar from "@/components/Avatar";
+import Heading from "@/components/Heading";
+import { Rating } from "@mui/material";
+import moment from "moment";
 
 interface ListRatingProps {
-  product: any
+  product: any;
 }
 
-export const ListRating: React.FC<ListRatingProps> = ({product}) => {
+export const ListRating: React.FC<ListRatingProps> = ({ product }) => {
   return (
     <div>
-      <Heading title="Product Review"/>
+      <Heading title="Product Review" />
 
       <div className="text-sm mt-2">
-        {product.reviews && product.reviews.map((review: any) => {
-          return <div key={review.id} className="max-w-[300px]">
-            <div>
-              <div>Avatar</div>
-              <div>{review?.user?.name}</div>
+        {product.reviews &&
+          product.reviews.map((review: any) => {
+            return (
+              <div key={review.id} className="max-w-[300px]">
+                <div className="flex gap-2 items-center">
+                  <Avatar src={review?.user.image}/>
+                  <div className="font-semibold">{review?.user?.name}</div>
 
-              {/* npm i moment - can use it to format the dates*/}
-              <div>{moment(review.createdDate).fromNow()}</div>
-              <p >{review.comment}</p>
-            </div>
-          </div>
-        })}
+                  {/* npm i moment - can use it to format the dates*/}
+                  <div className="font-light">
+                    {moment(review.createdDate).fromNow()}
+                  </div>
+                </div>
+
+                <div className="mt-2">
+                  <Rating value={review.rating} readOnly/>
+                  <div className="ml-2">{review.comment}</div>
+                  <hr className="mt-4 mb-4"/>
+                </div>
+
+              </div>
+            );
+          })}
       </div>
     </div>
-  )
-}
+  );
+};
