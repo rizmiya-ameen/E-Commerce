@@ -3,6 +3,7 @@
 import Button from "@/components/Button";
 import SetColor from "@/components/products/SetColor";
 import { SetQuantity } from "@/components/products/SetQuantity";
+import { useCart } from "@/hooks/useCart";
 import { Rating } from "@mui/material";
 import { useCallback, useState } from "react";
 
@@ -32,6 +33,9 @@ const Horizontal = () => {
 };
 
 const ProductDetails = ({ product }: ProductDetailsProps) => {
+ 
+  const { cartTotalQty } = useCart();
+
   const [cartProduct, setCartProduct] = useState<CartProductType>({
     id: product.id,
     name: product.name,
@@ -56,6 +60,8 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
     [cartProduct.selectedImg]
   );
 
+
+  console.log(cartTotalQty)
   /*
   const handleQtyIncrease = useCallback(() => {
 

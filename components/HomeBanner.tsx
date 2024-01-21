@@ -11,11 +11,18 @@ const HomeBanner = () => {
           <p>GET 50% OFF</p>
         </div>
         <div className="w-1/3 relative aspect-video ">
-          <Image 
+          {/* <Image 
             src="/banner-image.png"
             fill
             alt="Banner Image"
             className="object-contain"
+            sizes=""
+          /> */}
+
+          <Image 
+            src="/banner-image.png"
+            alt="Banner Image"
+            className="object-contain w-full h-full" 
           />
         </div>
       </div>
