@@ -6,6 +6,7 @@ import { SetQuantity } from "@/components/products/SetQuantity";
 import { useCart } from "@/hooks/useCart";
 import { Rating } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
+import { MdCheckCircle } from "react-icons/md";
 
 interface ProductDetailsProps {
   product: any;
@@ -33,10 +34,9 @@ const Horizontal = () => {
 };
 
 const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
- 
   const { handleAddProductToCart, cartProducts } = useCart();
 
-  const [ isProductInCart, setIsProductInCart ] = useState(false)
+  const [isProductInCart, setIsProductInCart] = useState(false);
 
   const [cartProduct, setCartProduct] = useState<CartProductType>({
     id: product.id,
@@ -52,16 +52,16 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
   useEffect(() => {
     setIsProductInCart(false);
 
-    if(cartProducts) {
+    if (cartProducts) {
       const existingIndex = cartProducts.findIndex(
         (item) => item.id === product.id
-      )
+      );
 
       if (existingIndex > -1) {
         setIsProductInCart(true);
       }
     }
-  }, [cartProducts])
+  }, [cartProducts]);
 
   const productRating =
     product.reviews.reduce((acc: number, item: any) => item.rating + acc, 0) /
@@ -147,25 +147,39 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
 
       <Horizontal />
 
-      <SetColor
-        images={product.images}
-        cartProduct={cartProduct}
-        handleColorSelect={handleColorSelect}
-      />
+      {isProductInCart ? (
+        <>
+          <p className="">
+            <MdCheckCircle size={20}/>
+            <span>Product added to cart</span>
+          </p>
+        </>
+      ) : (
+        <>
+          <SetColor
+            images={product.images}
+            cartProduct={cartProduct}
+            handleColorSelect={handleColorSelect}
+          />
 
-      <Horizontal />
+          <Horizontal />
 
-      <SetQuantity
-        cartProduct={cartProduct}
-        handleQtyIncrease={handleQtyIncrease}
-        handleQtyDecrease={handleQtyDecrease}
-      />
+          <SetQuantity
+            cartProduct={cartProduct}
+            handleQtyIncrease={handleQtyIncrease}
+            handleQtyDecrease={handleQtyDecrease}
+          />
 
-      <Horizontal />
+          <Horizontal />
 
-      <div className="max-w-[300px]">
-        <Button label="Add To Cart" onClick={() => handleAddProductToCart(cartProduct)} />
-      </div>
+          <div className="max-w-[300px]">
+            <Button
+              label="Add To Cart"
+              onClick={() => handleAddProductToCart(cartProduct)}
+            />
+          </div>
+        </>
+      )}
     </div>
   );
 };
