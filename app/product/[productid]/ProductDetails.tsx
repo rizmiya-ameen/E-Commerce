@@ -32,9 +32,9 @@ const Horizontal = () => {
   return <hr className="w-[30%] my-2" />;
 };
 
-const ProductDetails = ({ product }: ProductDetailsProps) => {
+const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
  
-  const { cartTotalQty } = useCart();
+  const { handleAddProductToCart, cartProducts } = useCart();
 
   const [cartProduct, setCartProduct] = useState<CartProductType>({
     id: product.id,
@@ -60,8 +60,9 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
     [cartProduct.selectedImg]
   );
 
+  console.log(cartProducts);
+  //console.log(cartTotalQty)
 
-  console.log(cartTotalQty)
   /*
   const handleQtyIncrease = useCallback(() => {
 
@@ -147,7 +148,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
       <Horizontal />
 
       <div className="max-w-[300px]">
-        <Button label="Add To Cart" onClick={() => {}} />
+        <Button label="Add To Cart" onClick={() => handleAddProductToCart(cartProduct)} />
       </div>
     </div>
   );
