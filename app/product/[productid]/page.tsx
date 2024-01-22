@@ -1,8 +1,8 @@
 import Container from '@/components/Container'
 import React from 'react'
 import ProductDetails from './ProductDetails'
-import { product } from '@/utils/product'
 import { ListRating } from './ListRating'
+import { products } from '@/utils/products'
 
 interface Params {
   productid?: string
@@ -13,6 +13,7 @@ const Product = ({params}: {params: Params}) => {
   //console.log('params', params)
   //params { productid: '43' }
 
+  const product = products.find(item => item.id === params.productid)
   
   return (
     <div className='p-8'>
