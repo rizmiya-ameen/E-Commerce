@@ -1,10 +1,12 @@
 "use client";
 
 import Button from "@/components/Button";
+import ProductImage from "@/components/products/ProductImage";
 import SetColor from "@/components/products/SetColor";
 import { SetQuantity } from "@/components/products/SetQuantity";
 import { useCart } from "@/hooks/useCart";
 import { Rating } from "@mui/material";
+import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { MdCheckCircle } from "react-icons/md";
 
@@ -48,6 +50,8 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
     quantity: 1,
     price: product.price,
   });
+
+  const router = useRouter();
 
   useEffect(() => {
     setIsProductInCart(false);
@@ -122,7 +126,9 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-      <div>Images</div>
+      
+      <ProductImage cartProduct={cartProduct} product={product} handleColorSelect={handleColorSelect}/>
+
       <div className="flex flex-col gap-1 text-slate-500 text-sm">
         <h2 className="text-3xl font-medium text-slate-700">{product.name}</h2>
         <div className="flex items-center gap-2">
@@ -143,16 +149,21 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
         <div className={product.inStock ? "text-teal-400" : "text-rose-400"}>
           {product.inStock ? "In stock" : "Out of stock"}
         </div>
-      </div>
+      
 
       <Horizontal />
 
       {isProductInCart ? (
         <>
-          <p className="">
-            <MdCheckCircle size={20}/>
+          <p className="mb-2 text-slate-500 flex items-center gap-1">
+            <MdCheckCircle className="text-teal-400" size={20}/>
             <span>Product added to cart</span>
           </p>
+          <div className="max-w-[300px]">
+            <Button label="View Cart" outline onClick={() => {
+              router.push("/cart")
+            }}/>
+          </div>
         </>
       ) : (
         <>
@@ -180,6 +191,8 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
           </div>
         </>
       )}
+
+      </div>
     </div>
   );
 };

@@ -10,7 +10,7 @@ interface Params {
 
 const Product = ({params}: {params: Params}) => {
 
-  console.log('params', params)
+  //console.log('params', params)
   //params { productid: '43' }
 
   
