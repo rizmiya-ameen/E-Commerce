@@ -1,34 +1,65 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# ElectroSwift
 
-## Getting Started
+[Live Demo](https://electroswift-rizmiya.vercel.app/)
 
-First, run the development server:
+## Overview
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+ElectroSwift is a modern e-commerce website developed using Next.js 14, TypeScript, Tailwind CSS, MongoDB, Prisma, NextAuth for user authentication, and Stripe for payment processing. The website allows users to search for various products, view product details, write reviews, and manage their shopping cart. It also includes an admin dashboard for site management.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **User Authentication:** Secure user registration and sign-in using NextAuth.
+- **Product Search:** Users can search for a wide range of products.
+- **Category Navigation:** Navigate through different product categories via the navbar.
+- **Product Details:** View detailed information about a product, including name, brand, available colors, price, quantity, ratings, and reviews.
+- **Review and Rating:** Users can write reviews and give ratings to products.
+- **Shopping Cart:** Add products to the cart, manage quantities, and view the total cost.
+- **Payment Processing:** Seamless checkout with Stripe for secure and convenient payment processing.
+- **Admin Dashboard:** A dedicated dashboard for site administrators to manage products, orders, and user data.
+- **Responsive Design:** The website is designed to work seamlessly on various devices.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
+## Screenshots
 
-To learn more about Next.js, take a look at the following resources:
+### Home Page
+![Home Page](/public/home.png)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Product Details
+![Product Details](/public/productdetails.png)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Cart
+![Cart](/public/cart.png)
 
-## Deploy on Vercel
+<!-- ### Register Form
+![Register Form](/public/details.png)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Sign-In
+![Sign-In](/public/genre-science.png)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Payment Processing
+![Payment Processing](/public/genre-science.png)
+
+### Admin Dashboard
+![Admin Dashboard](/public/genre-science.png) -->
+
+## Tech Stack
+
+- Next.js 14
+- TypeScript
+- Tailwind CSS
+- MongoDB
+- Prisma
+- NextAuth
+- Stripe (for payment processing)
+
+<!-- ## Admin Dashboard
+
+To access the admin dashboard, log in with admin credentials and navigate to [Admin Dashboard](https://electroswift-rizmiya.vercel.app/). -->
+
+## Contributing
+
+If you'd like to contribute to this project, please follow the [contributing guidelines](CONTRIBUTING.md).
+
+## License
+
+This project is licensed under the [MIT License](https://github.com/rizmiya-ameen/E-Commerce?tab=MIT-1-ov-file).
