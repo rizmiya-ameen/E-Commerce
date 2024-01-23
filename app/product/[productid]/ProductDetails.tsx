@@ -65,7 +65,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
         setIsProductInCart(true);
       }
     }
-  }, [cartProducts]);
+  }, [product.id, cartProducts]);
 
   const productRating =
     product.reviews.reduce((acc: number, item: any) => item.rating + acc, 0) /
@@ -77,7 +77,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
         return { ...prev, selectedImg: value };
       });
     },
-    [cartProduct.selectedImg]
+    []
   );
 
   console.log(cartProducts);
@@ -112,7 +112,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
         return { ...prev, quantity: prev.quantity - 1 };
       }
     });
-  }, [cartProduct]);
+  }, []);
 
   const handleQtyIncrease = useCallback(() => {
     setCartProduct((prev) => {
@@ -122,7 +122,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
         return { ...prev, quantity: prev.quantity + 1 };
       }
     });
-  }, [cartProduct]);
+  }, []);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-12">

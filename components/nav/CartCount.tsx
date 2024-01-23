@@ -1,15 +1,18 @@
-"use client"
+"use client";
 
 import { useCart } from "@/hooks/useCart";
 import { useRouter } from "next/navigation";
-import { CiShoppingCart } from "react-icons/ci"
+import { CiShoppingCart } from "react-icons/ci";
 
 const CartCount = () => {
   const { cartTotalQty } = useCart();
   const router = useRouter();
 
   return (
-    <div className="relative cursor-pointer" onClick={() => router.push('/cart')}>
+    <div
+      className="relative cursor-pointer"
+      onClick={() => router.push("/cart")}
+    >
       <div className="text-3xl">
         <CiShoppingCart />
       </div>
@@ -18,7 +21,7 @@ const CartCount = () => {
         {cartTotalQty}
       </span>
     </div>
-  )
-}
+  );
+};
 
-export default CartCount
+export default CartCount;
