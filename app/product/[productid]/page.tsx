@@ -9,6 +9,15 @@ interface Params {
   productid?: string
 }
 
+export function generateMetadata({ params }: { params: Params }) {
+  const product = products.find(item => item.id === params.productid)
+
+  return {
+    title: product ? `${product.name} | ElectroSwift` : "Product not found | ElectroSwift",
+    description: product?.description,
+  }
+}
+
 const Product = ({params}: {params: Params}) => {
 
   //console.log('params', params)
@@ -24,7 +33,6 @@ const Product = ({params}: {params: Params}) => {
         <ProductDetails product = {product}/>
 
         <div className='flex flex-col mt-20 gap-4'>
-          <div>Add Rating</div>
           <ListRating product={product}/>
         </div>
       </Container>

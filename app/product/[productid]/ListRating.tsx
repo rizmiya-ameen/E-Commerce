@@ -15,6 +15,9 @@ export const ListRating: React.FC<ListRatingProps> = ({ product }) => {
       <Heading title="Product Review" />
 
       <div className="text-sm mt-2">
+        {(!product.reviews || product.reviews.length === 0) && (
+          <p className="text-slate-500">No reviews yet.</p>
+        )}
         {product.reviews &&
           product.reviews.map((review: any) => {
             return (

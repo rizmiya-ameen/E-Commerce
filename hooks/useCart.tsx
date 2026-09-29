@@ -1,3 +1,5 @@
+"use client";
+
 import { CartProductType } from "@/app/product/[productid]/ProductDetails";
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -74,6 +76,8 @@ export const CartContextProvider = (props: Props) => {
       localStorage.setItem("eShopCartItems", JSON.stringify(updatedCart))
       return updatedCart;
     });
+
+    toast.success("Product added to cart");
   }, []);
 
   const handleRemoveProductFromCart = useCallback((product: CartProductType) => {
@@ -83,6 +87,7 @@ export const CartContextProvider = (props: Props) => {
       })
 
       SetCartProducts(filteredProducts)
+      toast.success("Product removed")
       localStorage.setItem("eShopCartItems", JSON.stringify(filteredProducts))
     }   
   }, [cartProducts])

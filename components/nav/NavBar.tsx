@@ -4,14 +4,15 @@ import { Redressed } from "next/font/google";
 import CartCount from "./CartCount";
 import UserMenu from "./UserMenu";
 import { getCurrentUser } from '@/actions/getCurrentUser'
+import SearchBar from "./SearchBar";
+import Categories from "./Categories";
+import { Suspense } from "react";
 
 const redressed = Redressed({ subsets: ["latin"], weight: ["400"]})
 
 export const NavBar = async () => {
 
   const currentUser = await getCurrentUser()
-
-  //console.log("user", currentUser)
 
   return <div className="sticky top-0 w-full bg-slate-200 z-30 shadow-sm">
     <div className="py-4 border-b-[1px]">
@@ -21,7 +22,11 @@ export const NavBar = async () => {
             ElectroSwift
           </Link>
 
-          <div className="hidden md:block">Search</div>
+          <div className="hidden md:flex flex-1 justify-center">
+            <Suspense>
+              <SearchBar />
+            </Suspense>
+          </div>
 
           <div className="flex items-center gap-8 md:gap-12">
             <CartCount />
@@ -31,6 +36,9 @@ export const NavBar = async () => {
         </div>
       </Container>
     </div>
-   
+
+    <Suspense>
+      <Categories />
+    </Suspense>
   </div>;
 };

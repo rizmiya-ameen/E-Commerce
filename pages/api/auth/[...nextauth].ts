@@ -39,11 +39,17 @@ export const authOptions: AuthOptions = {
         }
 
         // Fetching user from Prisma based on email
-        const user = await prisma.user.findUnique({
-          where: {
-            email: credentials.email,
-          },
-        });
+        let user;
+        try {
+          user = await prisma.user.findUnique({
+            where: {
+              email: credentials.email,
+            },
+          });
+        } catch (error) {
+          console.error("Login failed: could not reach the database", error);
+          throw new Error("Unable to sign in right now. Please try again later.");
+        }
 
         // Checking if user or hashedPassword is missing
         if (!user || !user?.hashedPassword) {
