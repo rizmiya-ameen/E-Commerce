@@ -26,8 +26,6 @@ export const CartContextProvider = (props: Props) => {
     null
   );
 
-  console.log("qty", cartTotalQty)
-  console.log("total", cartTotalAmount)
 
 
   useEffect(() => {
@@ -105,7 +103,10 @@ export const CartContextProvider = (props: Props) => {
         );
 
         if (existingIndex > -1) {
-          updatedCart[existingIndex].quantity = ++updatedCart[existingIndex].quantity
+          updatedCart[existingIndex] = {
+            ...updatedCart[existingIndex],
+            quantity: updatedCart[existingIndex].quantity + 1,
+          }
         }
 
         SetCartProducts(updatedCart)
@@ -130,7 +131,10 @@ export const CartContextProvider = (props: Props) => {
         );
 
         if (existingIndex > -1) {
-          updatedCart[existingIndex].quantity = --updatedCart[existingIndex].quantity
+          updatedCart[existingIndex] = {
+            ...updatedCart[existingIndex],
+            quantity: updatedCart[existingIndex].quantity - 1,
+          }
         }
 
         SetCartProducts(updatedCart)

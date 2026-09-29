@@ -67,9 +67,10 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
     }
   }, [product.id, cartProducts]);
 
-  const productRating =
-    product.reviews.reduce((acc: number, item: any) => item.rating + acc, 0) /
-    product.reviews.length;
+  const productRating = product.reviews.length
+    ? product.reviews.reduce((acc: number, item: any) => item.rating + acc, 0) /
+      product.reviews.length
+    : 0;
 
   const handleColorSelect = useCallback(
     (value: SelectedImgType) => {
@@ -80,7 +81,6 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
     []
   );
 
-  console.log(cartProducts);
   //console.log(cartTotalQty)
 
   /*

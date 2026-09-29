@@ -10,6 +10,17 @@ export async function POST(request: Request) {
   // Extracting relevant information from the request body
   const { name, email, password } = body;
 
+  // Rejecting requests with missing fields
+  if (!name || !email || !password) {
+    return NextResponse.json({ error: "Missing name, email or password" }, { status: 400 });
+  }
+
+  // Rejecting emails that are already registered
+  const existingUser = await prisma.user.findUnique({ where: { email } });
+  if (existingUser) {
+    return NextResponse.json({ error: "Email is already registered" }, { status: 409 });
+  }
+
   // Hashing the password using bcrypt with a cost factor of 10
   const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -22,8 +33,9 @@ export async function POST(request: Request) {
     },
   });
 
-  // Returning a JSON response with the newly created user
-  return NextResponse.json(user);
+  // Returning a JSON response with the newly created user (without the password hash)
+  const { hashedPassword: _, ...safeUser } = user;
+  return NextResponse.json(safeUser);
 }
 
 // import bcrypt from "bcrypt";

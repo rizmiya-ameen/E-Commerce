@@ -4,17 +4,21 @@ import Button from "@/components/Button";
 import Heading from "@/components/Heading";
 import Input from "@/components/inputs/Input";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FieldValues, useForm, SubmitHandler } from "react-hook-form";
 import toast from "react-hot-toast";
 import { AiOutlineGoogle } from "react-icons/ai";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { SafeUser } from "@/types";
 
-const RegisterForm = () => {
+interface RegisterProps {
+  currentUser: SafeUser | null
+}
+
+
+const RegisterForm: React.FC<RegisterProps> = ({currentUser}) => {
   const [isLoading, setIsLoading] = useState(false);
-
-
 
   // Destructuring properties from react-hook-form
   const {
@@ -32,22 +36,36 @@ const RegisterForm = () => {
 
   const router = useRouter();
 
+
+  useEffect(() => {
+    if(currentUser) {
+      router.push("/cart");
+      router.refresh()
+    }
+  }, [currentUser, router])
+
+
   // Define a function to handle form submission
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    
     setIsLoading(true);
 
     // console.log(data);
 
     // Make a POST request to the 'api/register' endpoint with the form data
-    fetch("api/register", {
+    fetch("/api/register", {
       method: "POST", // Specify the HTTP method
       headers: {
         "Content-Type": "application/json", // Specify that the request contains JSON data
       },
       body: JSON.stringify(data), // Convert form data to JSON and send it in the request body
     })
-      .then(() => {
+      .then(async (res) => {
+        // fetch only rejects on network errors, so check the HTTP status too
+        if (!res.ok) {
+          const { error } = await res.json().catch(() => ({}));
+          throw new Error(error || "Something went wrong");
+        }
+
         // Display a success toast when the account is created
         toast.success("Account created");
 
@@ -70,7 +88,7 @@ const RegisterForm = () => {
           }
         });
       })
-      .catch(() => toast.error("Something went wrong")) // Display an error toast if there's an issue with the POST request
+      .catch((error) => toast.error(error.message || "Something went wrong")) // Display an error toast if there's an issue with the POST request
       .finally(() => {
         // Set loading state back to false regardless of success or failure
         setIsLoading(false);
@@ -78,15 +96,20 @@ const RegisterForm = () => {
   };
 
 
+  if (currentUser) {
+    return <p className="text-center">Logged in. Redirecting...</p>
+  }
+
+
   return (
     <>
       <Heading title="Sign up for ElectroSwift" />
 
       <Button
-        label="Sign Up with Google"
+        label="Continue with Google"
         outline
         icon={AiOutlineGoogle}
-        onClick={() => {}}
+        onClick={() => signIn('google')}
       />
 
       <hr className="bg-slate-300 w-full h-px" />

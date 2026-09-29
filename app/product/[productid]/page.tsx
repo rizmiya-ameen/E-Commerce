@@ -3,6 +3,7 @@ import React from 'react'
 import ProductDetails from './ProductDetails'
 import { ListRating } from './ListRating'
 import { products } from '@/utils/products'
+import { notFound } from 'next/navigation'
 
 interface Params {
   productid?: string
@@ -14,6 +15,8 @@ const Product = ({params}: {params: Params}) => {
   //params { productid: '43' }
 
   const product = products.find(item => item.id === params.productid)
+
+  if (!product) notFound()
   
   return (
     <div className='p-8'>

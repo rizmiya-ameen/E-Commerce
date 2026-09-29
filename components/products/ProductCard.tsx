@@ -12,7 +12,9 @@ interface ProductCardProps {
 
 const ProductCard = ({data}: ProductCardProps) => {
 
-  const productRating = data.reviews.reduce((acc: number, item: any) => item.rating + acc, 0) / data.reviews.length
+  const productRating = data.reviews.length
+    ? data.reviews.reduce((acc: number, item: any) => item.rating + acc, 0) / data.reviews.length
+    : 0
 
   const router = useRouter()
 
